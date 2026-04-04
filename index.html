@@ -13,7 +13,7 @@
     :root {
         --bg-animation: #ece5d4;
         --bg-about: #ece5d4;
-        --bg-photo: #857157;
+        --bg-photo: #ece5d4;
         --bg-contacts: #ede0cf;
         --bg-footer: #ede0cf;
         --color-h1: #af1519; 
@@ -81,6 +81,77 @@
         background: #000;
         overflow: visible;
     }
+	    /* ==========================================
+       СТАТИЧНАЯ КАРТИНКА ДЛЯ ПОРТРЕТНОЙ ОРИЕНТАЦИИ
+       ========================================== */
+        /* ==========================================
+       СТАТИЧНАЯ КАРТИНКА ДЛЯ ПОРТРЕТНОЙ ОРИЕНТАЦИИ
+       ========================================== */
+    .animation-static {
+        display: none; /* Скрыто по умолчанию */
+        text-align: center;
+        padding: 20px 0;
+    }
+    
+    .animation-static-img {
+        width: 100%;
+        max-width: 700px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        /* border-radius и box-shadow убраны */
+    }
+    
+    .rotate-message {
+        font-family: var(--font-heading);
+        font-size: 1em; /* Было 1.2rem */
+        color: var(--color-h3);
+        margin-top: 20px;
+        /* background убран */
+        /* border-radius убран */
+        /* padding можно оставить минимальный или убрать совсем */
+        display: inline-block;
+    }
+
+    /* ==========================================
+       УПРАВЛЕНИЕ ОТОБРАЖЕНИЕМ ПО ОРИЕНТАЦИИ
+       ========================================== */
+    
+    /* Портретная ориентация на мобильных (< 768px) */
+    @media (orientation: portrait) and (max-width: 768px) {
+        .animation-static {
+            display: block; /* Показываем статику */
+        }
+        .iframe-container {
+            display: none; /* Скрываем iframe */
+        }
+        .animation-section {
+            padding: 40px 0 !important;
+        }
+    }
+    
+    /* Ландшафтная ориентация на мобильных */
+    @media (orientation: landscape) and (max-width: 768px) {
+        .animation-static {
+            display: none; /* Скрываем статику */
+        }
+        .iframe-container {
+            display: block; /* Показываем iframe */
+        }
+        .animation-section {
+            padding: 40px 0 !important;
+        }
+    }
+    
+    /* Десктоп — всегда показываем iframe */
+    @media (min-width: 769px) {
+        .animation-static {
+            display: none;
+        }
+        .iframe-container {
+            display: block;
+        }
+    }
     .animation-frame {
         position: absolute;
         width: var(--frame-width);
@@ -137,6 +208,33 @@
         background: var(--h3-icon) no-repeat center / contain;
     }
     .about-content .quote-author { text-align: right; font-size: 0.95rem; margin-top: 10px; }
+	
+	    /* ==========================================
+       СНОСКИ И ПРИМЕЧАНИЯ
+       ========================================== */
+    .footnote-separator {
+        text-align: center;
+        color: var(--color-muted);
+        margin: 1.5rem 0 0.5rem 0;
+        font-size: 1.2rem;
+        line-height: 1;
+        opacity: 0.6;
+    }
+    
+    .footnote {
+        font-size: 0.9rem;
+        color: var(--color-muted);
+        line-height: 1.4;
+        margin: 0.5rem 0 1.5rem 0;
+        padding-left: 1.2rem;
+        border-left: 2px solid var(--color-muted);
+        opacity: 0.85;
+    }
+    
+    .footnote em {
+        font-style: normal;
+        color: var(--color-h3);
+    }
 
     /* ==========================================
        СЕКЦИЯ 3: ФОТО КНИГ
@@ -377,7 +475,7 @@
         
         /* Анимация на мобильных */
         .animation-section { padding: 80px 0 40px 0 !important; }
-        .iframe-container { 
+        /*.iframe-container { 
             width: 100vw !important; 
             height: calc(100vw * 9 / 16) !important; 
             margin: 0 !important;
@@ -391,7 +489,8 @@
             transform-origin: top left !important;
         }
         .animation-rope { width: 120px !important; }
-        
+        */
+		
         /* Фото книжек: нормальные отступы без отрицательных margin */
         .photo-section { 
             margin: 0; /* Убираем верхние/нижние отступы */
@@ -448,14 +547,21 @@
 </head>
 <body>
 
-    <!-- СЕКЦИЯ 1: АНИМАЦИЯ -->
-    <section class="animation-section">
-        <div class="iframe-container">
+	<!-- СЕКЦИЯ 1: АНИМАЦИЯ -->
+	<section class="animation-section">
+		<!-- Контейнер для статичной картинки (показывается на мобильных в портретной ориентации) -->
+		<div class="animation-static">
+			<img src="assets/wallpicture.webp" alt="Анимация книги" class="animation-static-img">
+			<p class="rotate-message">🔄 Поверните экран для просмотра анимации</p>
+		</div>
+		
+		<!-- Контейнер с iframe (показывается на десктопе и в ландшафте) -->
+		<div class="iframe-container">
 			<img src="assets/rope.webp" alt="Веревочка" class="animation-rope">
 			<img src="assets/FRAME.webp" alt="Рама" class="animation-frame">
-            <iframe src="animation/animation.html" scrolling="no" allowfullscreen></iframe>
-        </div>
-    </section>
+			<iframe src="animation/animation.html" scrolling="no" allowfullscreen></iframe>
+		</div>
+	</section>
 
     <!-- СЕКЦИЯ 2: О КНИГЕ -->
     <section class="about-section">
@@ -484,9 +590,8 @@
                 <p>Данное издание — это полностью готовая концепция книги-подарка. Книга в твёрдом переплёте, обрезной формат 210 на 290, 64 страницы. Мы уже выпустили пробный микро-тираж, чтобы убедиться в хорошем качестве печати, правильной цветопередаче и так далее. Книга физически существует и готова к масштабному воплощению.</p>
                 <h3>Почему проект выгоден для партнера</h3>
                 <p><strong>Свободные права:</strong> Оригинальные тексты А.А. Милна перейдут в статус общественного достояния с 1 января 2027 года в России и Европе*, что освобождает издателя от необходимости приобретать дорогостоящие зарубежные лицензии.</p>
-				<p>---</p>
-				<p>* В США сборник «When We Were Very Young» (1924) стал общественным достоянием в 2020 году, а «Now We Are Six» (1927) — в 2023 году. 
-				</p>
+				<!--<div class="footnote-separator">• • •</div>-->
+				<p class="footnote">* В США сборник <em>«When We Were Very Young»</em> (1924) стал общественным достоянием в 2020 году, а <em>«Now We Are Six»</em> (1927) — в 2023 году.</p>
                 <p><strong>Готовый продукт:</strong> Книга не требует доработки — макет готов к передаче в типографию «как есть».</p>
                 <p><strong>Уникальная ниша:</strong> Качественная классическая билингва с современным визуальным языком — это востребованный сегмент, который практически не представлен на рынке в таком художественном исполнении.</p>
             </div>
