@@ -11,8 +11,8 @@
 
 <style>
     :root {
-        --bg-animation: #ede0cf;
-        --bg-about: #ede0cf;
+        --bg-animation: #ece5d4;
+        --bg-about: #ece5d4;
         --bg-photo: #857157;
         --bg-contacts: #ede0cf;
         --bg-footer: #ede0cf;
@@ -63,8 +63,12 @@
        СЕКЦИЯ 1: АНИМАЦИЯ (IFRAME)
        ========================================== */
     .animation-section {
+        background-image: url('assets/wallpaper-tile-512.webp'); 
+        background-repeat: repeat;
+        background-position: left top;
+        background-size: auto;           
         background-color: var(--bg-animation);
-        padding: 160px 0 40px 0;
+        padding: 160px 0 200px 0; 
         width: 100%;
         max-width: 100vw;
     }
@@ -139,14 +143,15 @@
        ========================================== */
     .photo-section { 
         background-color: var(--bg-photo); 
-        padding: 60px 20px; 
+      /*  padding: 60px 20px; */
         text-align: center; 
         position: relative;
     /*    overflow: hidden; */
         max-width: 100vw;
+		margin: 130px 0 120px 0 ;
     }
     .photo-container { 
-        max-width: 1400px;
+       */ max-width: 1400px;*/
         margin: 0 auto;
         position: relative;
         z-index: 1;
@@ -156,7 +161,7 @@
         height: auto; 
         display: block; 
         margin: 0 auto; 
-		max-width: 70%;
+		max-width: 100%;
     }
 
     /* ==========================================
@@ -341,15 +346,16 @@
     /* ==========================================
        АДАПТИВНОСТЬ (МОБИЛЬНЫЕ)
        ========================================== */
-    @media (min-width: 1025px) {
-        /* ДЕСКТОП: сохраняем твоё "вылезание" фото */
-        .photo-container { margin-top: -130px; margin-bottom: -160px; }
+   @media (min-width: 1025px) {
+        /* ДЕСКТОП: отрицательные margin для эффекта "вылезания" */
+        .photo-container { 
+            margin-top: -130px; 
+            margin-bottom: -160px; 
+        }
         .footer-container { margin-top: -250px; }
     }
 
-    @media (max-width: 1024px) {
-        .photo-container { margin-top: -80px; margin-bottom: -100px; }
-    }
+    /* УБРАЛИ МЕДИА-ЗАПРОС ДЛЯ 1024px — он создавал проблему! */
 
     @media (max-width: 768px) {
         :root { 
@@ -361,7 +367,7 @@
         h3 { font-size: 1.3rem; } 
         p { font-size: 1rem; }
         
-        /* Галерея в 1 колонку, без вылезания */
+        /* Галерея в 1 колонку */
         .gallery-container { padding: 0 10px; }
         .gallery-grid { 
             grid-template-columns: 1fr; 
@@ -370,7 +376,7 @@
         .gallery-item { aspect-ratio: 1.44; }
         
         /* Анимация на мобильных */
-        .animation-section { padding: 80px 0 20px 0 !important; }
+        .animation-section { padding: 80px 0 40px 0 !important; }
         .iframe-container { 
             width: 100vw !important; 
             height: calc(100vw * 9 / 16) !important; 
@@ -386,18 +392,25 @@
         }
         .animation-rope { width: 120px !important; }
         
-        /* Фото книжек: убираем отрицательные отступы, делаем фото крупнее */
-        .photo-section { padding: 40px 10px; }
-        .photo-container { margin: 0; padding: 10px 0; }
+        /* Фото книжек: нормальные отступы без отрицательных margin */
+        .photo-section { 
+            margin: 0; /* Убираем верхние/нижние отступы */
+            padding: 0; /* Добавляем внутренние отступы */
+        }
+        .photo-container { 
+            padding: 0; /* Небольшие отступы по бокам */
+        }
         .photo-container img { 
             max-width: 100%; 
             height: auto; 
-            max-height: 70vh; /* Не даём фото стать слишком мелким */
             object-fit: contain;
         }
         
-        /* Футер: убираем наложение */
-        .footer-container { margin-top: 0; padding: 20px 0; }
+        /* Футер */
+        .footer-container { 
+            margin-top: 0; 
+            padding: 20px 0; 
+        }
         
         /* Лайтбокс на мобильных */
         .lightbox { padding: 10px; }
@@ -411,7 +424,8 @@
 
     @media (max-width: 480px) {
         .about-content .quote { font-size: 1.1rem; padding-left: 15px; }
-        .gallery-item { aspect-ratio: 1.44; } /* Оставляем горизонтальным, как просил */
+        .gallery-item { aspect-ratio: 1.44; }
+        .photo-section { padding: 0; } /* Чуть меньше отступы на очень маленьких */
     }
 
     @media (hover: none) {
@@ -482,7 +496,7 @@
     <!-- СЕКЦИЯ 3: ФОТО КНИГ -->
     <section class="photo-section">
         <div class="photo-container">
-            <img src="assets/book-photo-m.webp" alt="Бумажные книги Алана Александра Милна">
+            <img src="assets/book-photo-n.webp" alt="Бумажные книги Алана Александра Милна">
         </div>
     </section>
 
